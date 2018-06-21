@@ -1,26 +1,38 @@
 $(document).ready(function() {
-    $("#codigo_barras").change(function() { //Quando o campo codigo_barras e alterado.
-        var codigo_barras = $(this).val(); //Nova variável "codigo_barras" somente com dígitos.
-        var tamanho = codigo_barras.length; //Define o tamanho do codigo de barras
-        var array = codigo_barras.split(""); //Separa os numeros em um array
-        var par = 0;
-        var impar = 0;
+    /**
+     * valida o codigo de barras do produto (EAN/GTIN)
+     */
+    $('body').on('change', '#codigo-barras', function() {
+        // pega o codigo de barras (EAN/GTIN)
+        let codigo = this.value || '';
 
-        for (var i = 0; i < tamanho - 1; i++) {
-            var resto = i % 2;
-            if (resto == 0) {
-                par = par + (parseInt(array[i]) * 1);
-            } else {
-                impar = impar + (parseInt(array[i]) * 3);
+        // verifica se o código existe e é um número
+        if (codigo.length > 0 && !isNaN(codigo)) {                   	
+            // completa o GTIN com 18 chars
+            let num = codigo.padStart(18, 0);
+            // pega o dígito verificador
+            let dv = parseInt(num.charAt(17));
+            // pega o código de barras excluíndo o dígito verificador
+            num = num.substring(0, 17);
+
+            // realiza o calculo do dígito verificador
+            let sum = 0;
+            num.split('').forEach(function(value) {
+                // faz a soma dos digitos do código
+              sum += (factor * value);
+              // atualiza o fator de multiplicacao
+                factor = factor == 3 ? 1 : 3;
+            }, factor = 3);
+
+            // realiza o calculo do dígito verificador
+            let mmc = (Math.ceil(sum / 10)) * 10;
+            mod = parseInt(mmc - sum);
+
+            // valida se o dígito verificador informado
+            // é igual ao dígito verificador calculado
+            if (dv != mod) {
+                alert('O código de barras digitado não é válído. Por favor, verique os dados informados.');
             }
-        }
-        soma = par + impar;
-        multiplo10 = Math.ceil(soma / 10) * 10; //Define o proximo multiplo de 10
-        total = multiplo10 - soma; //Enontra o digito verificador
-        if (total == array[tamanho - 1]) { //Verifica se o digito verificador e igual ao ultimo digito
-            alert("Código Válido");
-        } else {
-            alert("Código Inválido");
         }
     });
 });
