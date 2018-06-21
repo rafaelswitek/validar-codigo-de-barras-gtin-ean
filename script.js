@@ -8,7 +8,7 @@ $(document).ready(function() {
 
         // verifica se o código existe e é um número
         if (codigo.length > 0 && !isNaN(codigo)) {                   	
-            // completa o GTIN com 18 chars
+            // completa o código de barras com 18 chars
             let num = codigo.padStart(18, 0);
             // pega o dígito verificador
             let dv = parseInt(num.charAt(17));
@@ -18,9 +18,9 @@ $(document).ready(function() {
             // realiza o calculo do dígito verificador
             let sum = 0;
             num.split('').forEach(function(value) {
-                // faz a soma dos digitos do código
+                // faz a soma dos dígitos do código
               sum += (factor * value);
-              // atualiza o fator de multiplicacao
+              // atualiza o fator de multiplicação
                 factor = factor == 3 ? 1 : 3;
             }, factor = 3);
 
