@@ -33,8 +33,8 @@ $(document).ready(function() {
             if (dv != mod) {
                 alert('O código de barras digitado não é válído. Por favor, verique os dados informados.');
             }else{
-				alert('O código de barras ' + codigo + ' é válído.');
-			}
+		alert('O código de barras ' + codigo + ' é válído.');
+	    }
         }
     });
 });
