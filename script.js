@@ -2,7 +2,7 @@ $(document).ready(function() {
     /**
      * valida o codigo de barras do produto (EAN/GTIN)
      */
-    $('body').on('change', '#codigo-barras', function() {
+    $('body').on('change', '#codigo_barras', function() {
         // pega o codigo de barras (EAN/GTIN)
         let codigo = this.value || '';
 
