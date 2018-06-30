@@ -32,8 +32,8 @@ $(document).ready(function() {
             // é igual ao dígito verificador calculado
             if (dv != mod) {
                 alert('O código de barras digitado não é válído. Por favor, verique os dados informados.');
-            }else{
-		alert('O código de barras ' + codigo + ' é válído.');
+            } else {
+		alert(`O código de barras "${codigo}" é válído.`);
 	    }
         }
     });
